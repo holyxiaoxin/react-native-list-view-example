@@ -7,6 +7,7 @@ import {
   Image,
   ListView,
   Dimensions,
+  Platform,
 } from 'react-native';
 import mockResponse from './mockResponse';
 import loadingIcon from './img/ring.gif';
@@ -49,7 +50,6 @@ export default class ReactNativeListView extends Component {
   fetchData = () => {
     setTimeout(() => {
       this.data = this.data.slice(0, this.data.length-1).concat(mockResponse.slice(this.currentRowIndex, this.currentRowIndex + ROWS_PER_REQUEST)).concat(this.data.slice(this.data.length-1));
-      console.log(this.data);
       this.currentRowIndex += ROWS_PER_REQUEST;
       this.setState({ dataSource: this.state.dataSource.cloneWithRows(this.data) });
     }, 2000)
@@ -73,7 +73,7 @@ export default class ReactNativeListView extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 20,
+    marginTop: Platform.OS === 'ios' ? 20 : 0,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
